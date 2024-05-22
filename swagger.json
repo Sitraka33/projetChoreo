@@ -1,0 +1,1319 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "gestion_presence"
+    },
+    "paths" :{
+        "/fiche":{
+            "post":{
+                "tags":["fiche"],
+                "summary":"creer une fiche de presence",
+                "description":"verifier si la matiere appartient a la classe, inserer horaire et lire l'horaire cree",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "type":"object",
+                            "properties":{
+                                "classe":{
+                                    "type":"string"
+                                },
+                                "dateabs":{
+                                    "type":"string",
+                                    "exemple":"dd-mm-yyyy"
+                                },
+                                "heure":{
+                                    "type":"string",
+                                    "exemple":"hh:mm"
+                                },
+                                "matiere":{
+                                    "type":"string"
+                                },
+                                "codeens":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses":{
+                    "201":{
+                        "description":"renvoie les donnees sur l'horaire cree",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "codehoraire":{
+                                    "type":"integer"
+                                },
+                                "dateabs":{
+                                    "type":"string"
+                                },
+                                "heure":{
+                                    "type":"string"
+                                },
+                                "codemat":{
+                                    "type":"integer"
+                                },
+                                "codeens":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }      
+
+            },
+            "get":{
+                "tags":["fiche"],
+                "summary":"renvoie les fiches",
+                "description":"renvoie les fiches",
+                "responses":{
+                    "200":{
+                        "description":"renvoie les fiches ordonees par le plus recent",
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "codehoraire":{
+                                        "type":"integer"
+                                    },
+                                    "dateabs":{
+                                        "type":"string"
+                                    },
+                                    "heure":{
+                                        "type":"string"
+                                    },
+                                    "nomens":{
+                                        "type":"string"
+                                    },
+                                    "matiere":{
+                                        "type":"string"
+                                    },
+                                    "classe":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "fiche/{codehoraire}":{
+            "delete":{
+                "tags":["fiche"],
+                "summary":"supprimer une fiche",
+                "description":"supprimer une fiche",
+                "parameters":[
+                    {
+                        "name" : "codehoraire",
+                        "required" : true,
+                        "in" : "paths",
+                        "description" : "codehoraire de la fiche",
+                        "type" : "integer"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie les donnees sur l'horaire cree",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "codehoraire":{
+                                    "type":"integer"
+                                },
+                                "dateabs":{
+                                    "type":"string"
+                                },
+                                "heure":{
+                                    "type":"string"
+                                },
+                                "codemat":{
+                                    "type":"integer"
+                                },
+                                "codeens":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/fiche/{mois}":{
+            "get":{
+                "tags":["fiche"],
+                "summary":"renvoie les fiches d'un mois donne",
+                "description":"renvoie les fiche d'un mois donne",
+                "parameters":[
+                    {
+                        "name" : "mois",
+                        "required" : true,
+                        "in" : "paths",
+                        "description" : "mois mm en nombre compris entre 1 et 12",
+                        "type" : "integer"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie les fiches d'un mois donne ordonee par le plus recent",
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "codehoraire":{
+                                        "type":"integer"
+                                    },
+                                    "dateabs":{
+                                        "type":"string"
+                                    },
+                                    "heure":{
+                                        "type":"string"
+                                    },
+                                    "nomens":{
+                                        "type":"string"
+                                    },
+                                    "matiere":{
+                                        "type":"string"
+                                    },
+                                    "classe":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ficheByEnseignant/{matricule}":{
+            "get":{
+                "tags":["fiche"],
+                "summary":"renvoie les fiches d'un enseignant",
+                "description":"renvoie les fiche d'un enseignant",
+                "parameters":[
+                    {
+                        "name" : "mois",
+                        "required" : true,
+                        "in" : "paths",
+                        "description" : "matricule de l'enseignant",
+                        "type" : "string"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie les fiches d'un enseignant",
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "codehoraire":{
+                                        "type":"integer"
+                                    },
+                                    "dateabs":{
+                                        "type":"string"
+                                    },
+                                    "heure":{
+                                        "type":"string"
+                                    },
+                                    "nomens":{
+                                        "type":"string"
+                                    },
+                                    "matiere":{
+                                        "type":"string"
+                                    },
+                                    "classe":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ficheByDate/{date}":{
+            "get":{
+                "tags":["fiche"],
+                "summary":"renvoie les fiches d'une date donnee",
+                "description":"renvoie les fiche d'une date donnee",
+                "parameters":[
+                    {
+                        "name" : "dateasb",
+                        "required" : true,
+                        "in" : "paths",
+                        "description" : "date recherche dd-mm-yyyy",
+                        "type" : "string"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie les fiches d'une date donnee ordonee par l'heure la plus ancienne",
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "codehoraire":{
+                                        "type":"integer"
+                                    },
+                                    "dateabs":{
+                                        "type":"string"
+                                    },
+                                    "heure":{
+                                        "type":"string"
+                                    },
+                                    "nomens":{
+                                        "type":"string"
+                                    },
+                                    "matiere":{
+                                        "type":"string"
+                                    },
+                                    "classe":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "fiche/{dateSup}/{dateInf}":{
+            "get":{
+                "tags":["fiche"],
+                "summary":"renvoie les fiches entre 2 dates",
+                "description":"renvoie les fiche entre 2 dates", 
+                "parameters":[
+                    {
+                        "name" : "dateSup",
+                        "required" : true,
+                        "in" : "paths",
+                        "description" : "date la plus recente dd-mm-yyyy",
+                        "type" : "string"
+                    },
+                    {
+                        "name" : "dateInf",
+                        "required" : true,
+                        "in" : "paths",
+                        "description" : "date la moins recente dd-mm-yyyy",
+                        "type" : "string"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie les fiches entre 2 dates donnees ordonee par la plus recente",
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "codehoraire":{
+                                        "type":"integer"
+                                    },
+                                    "dateabs":{
+                                        "type":"string"
+                                    },
+                                    "heure":{
+                                        "type":"string"
+                                    },
+                                    "nomens":{
+                                        "type":"string"
+                                    },
+                                    "matiere":{
+                                        "type":"string"
+                                    },
+                                    "classe":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "ficheByHoraire":{
+            "post":{
+                "tags":["fiche"],
+                "summary":"renvoie les fiches pour une date une heure une matiere un enseignant",
+                "description":"renvoie les fiches pour une date une heure une matiere un enseignant",
+                "parameters":[
+                    {
+                        "in":"body",
+                        "name":"body",
+                        "required":true,
+                        "schema":{
+                            "type":"object",
+                            "properties":{
+                                "dateabs":{
+                                    "type":"string",
+                                    "exemple":"dd-mm-yyyy"
+                                },
+                                "heure":{
+                                    "type":"string",
+                                    "exemple":"hh:mm"
+                                },
+                                "matiere":{
+                                    "type":"string"
+                                },
+                                "enseignant":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie les fiches pour une date une heure une matiere un enseignant par la plus recente",
+                        "schema":{
+                            "type":"object",
+                            "properties":{
+                                "codehoraire":{
+                                    "type":"integer"
+                                },
+                                "dateabs":{
+                                    "type":"string"
+                                },
+                                "heure":{
+                                    "type":"string"
+                                },
+                                "nomens":{
+                                    "type":"string"
+                                },
+                                "matiere":{
+                                    "type":"string"
+                                },
+                                "classe":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/matiere/{codeens}":{
+            "get":{
+                "tags":["matiere"],
+                "summary":"lire matieres par enseignant",
+                "description":"donner les matieres d'un enseignant par rapport a son codeens",
+                "parameters":[
+                    {
+                        "name" : "codeens",
+                        "required" : true,
+                        "in" : "paths",
+                        "description" : "code enseignant",
+                        "type" : "string"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie liste des matieres pour un enseignant",
+                        "schema": {
+                            "type": "array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "codemat":{
+                                        "type":"integer"
+                                    },
+                                    "matiere":{
+                                        "type":"string"
+                                    },
+                                    "classe":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                            
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+        },
+        "/matiere":{
+            "get":{
+                "tags":["matiere"],
+                "summary":"lire matieres ",
+                "description":"donner les matieres ",
+                "responses":{
+                    "200":{
+                        "description":"renvoie liste des matieres pour un enseignant",
+                        "schema": {
+                            "type": "array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "codemat":{
+                                        "type":"integer"
+                                    },
+                                    "matiere":{
+                                        "type":"string"
+                                    },
+                                    "classe":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                            
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+        },
+        "/etudiant":{
+            "post":{
+                "tags":["etudiant"],
+                "summary":"renvoie la liste des etudiants pour une classe",
+                "description":"suite de la requete post creer une fiche de presence",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "type":"object",
+                            "properties":{
+                                "classe":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie liste des etudiants pour une classe",
+                        "schema": {
+                            "type": "array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "im":{
+                                        "type":"string"
+                                    },
+                                    "nometd":{
+                                        "type":"string"
+                                    },
+                                    "prenomsetd":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        } 
+                    }
+                }
+            }
+        },
+        "/utilisateur":{
+            "post":{
+                "tags":["utilisateur"],
+                "summary":"creer un utilisateur",
+                "description":"creer un utilisateur compte par defaut enseignant",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "type":"object",
+                            "properties":{
+                                "matricule":{
+                                    "type":"string"
+                                },
+                                "motdepasse":{
+                                    "type":"string"
+                                },
+                                "poste":{
+                                    "type":"string"
+                                }
+
+                            }
+                        }
+                    }
+                ],
+                "responses":{
+                    "201":{
+                        "description":"renvoie utilisateur cree",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "id":{
+                                    "type":"integer"
+                                },
+                                "matricule":{
+                                    "type":"string"
+                                },
+                                "motdepasse":{
+                                    "type":"string"
+                                },
+                                "poste":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        } 
+                    }
+                }
+            },
+            "put":{
+                "tags":["utilisateur"],
+                "summary":"mise a jour un utilisateur",
+                "description":"mise a jour d un utilisateur compte",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "type":"object",
+                            "properties":{
+                                "matricule":{
+                                    "type":"string"
+                                },
+                                "motdepasse":{
+                                    "type":"string"
+                                }
+
+                            }
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie l'utilisateur mis a jour",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "id":{
+                                    "type":"integer"
+                                },
+                                "matricule":{
+                                    "type":"string"
+                                },
+                                "motdepasse":{
+                                    "type":"string"
+                                },
+                                "poste":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        } 
+                    }
+                }                
+            },
+            "get":{
+                "tags":["utilisateur"],
+                "summary":"renvoie tous les utilisateurs",
+                "description":"renvoie tous les utilisateurs",
+                "responses":{
+                    "200":{
+                        "description":"renvoie tous les utilisateurs",
+                        "schema":{
+                            "type": "array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "id":{
+                                        "type":"integer"
+                                    },
+                                    "matricule":{
+                                        "type":"string"
+                                    },
+                                    "poste":{
+                                        "type":"string"
+                                    },
+                                    "nom":{
+                                        "type":"string"
+                                    },
+                                    "prenoms":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/utilisateur/{matricule}":{
+            "delete":{
+                "tags":["utilisateur"],
+                "summary":"supprimer un utilisateur par son matricule",
+                "description":"supprimer un utilisateur par son matricule",
+                "parameters":[
+                    {
+                        "name" : "matricule",
+                        "required" : true,
+                        "in" : "paths",
+                        "description" : "matricule du compte utilisateur",
+                        "type" : "string"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie le matricule de l'utilisateur supprime",
+                        "schema":{
+                            "type":"object",
+                            "properties":{
+                                "matricule":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        } 
+                    }
+                }
+            }
+        },
+        "/authentification":{
+            "post":{
+                "tags":["utilisateur"],
+                "summary":"authentification",
+                "description":"s'authentifier avec son matricule et son motdepasse",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "type":"object",
+                            "properties":{
+                                "matricule":{
+                                    "type":"string"
+                                },
+                                "motdepasse":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie les donnees sur le compte utilisateur",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "id":{
+                                    "type":"integer"
+                                },
+                                "matricule":{
+                                    "type":"string"
+                                },
+                                "motdepasse":{
+                                    "type":"string"
+                                },
+                                "poste":{
+                                    "type":"string"
+                                },
+                                "nom":{
+                                    "type":"string"
+                                },
+                                "prenoms":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        },
+        "/classe":{
+            "get":{
+                "tags":["classe"],
+                "summary":"renvoie toutes les classes",
+                "description":"renvoie toutes les classes",
+                "responses":{
+                    "200":{
+                        "description":"renvoie toutes les classes",
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "classe":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/absence":{
+            "post":{
+                "tags":["absence"],
+                "summary":"inserer absence",
+                "description":"inserer les absences en fournissant un tableau d'objets",
+                "parameters":[
+                    {
+                        "in":"body",
+                        "name":"body",
+                        "required":true,
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "codemat":{
+                                        "type":"integer"
+                                    },
+                                    "codehoraire":{
+                                        "type":"integer"
+                                    },
+                                    "im":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses":{
+                    "201":{
+                        "description":"renvoie un message de succes",
+                        "schema":{
+                            "type":"object",
+                            "properties":{
+                                "message":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put":{
+                "tags":["absence"],
+                "summary":"mettre a jour absence",
+                "description":"mettre a jour le motif d'une absence",
+                "parameters":[
+                    {
+                        "in":"body",
+                        "name":"body",
+                        "required":true,
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "codeabs":{
+                                        "type":"integer"
+                                    },
+                                    "motifabs":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie un message de succes",
+                        "schema":{
+                            "type":"object",
+                            "properties":{
+                                "message":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "absence/{codehoraire}":{
+            "get":{
+                "tags":["absence"],
+                "summary":"renvoie liste absence pour une horaire",
+                "description":"renvoie liste absence pour une horaire",
+                "parameters":[
+                    {
+                        "name" : "codehoraire",
+                        "required" : true,
+                        "in" : "paths",
+                        "description" : "codehoraire",
+                        "type" : "integer"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie liste absence pour une horaire",
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "codeabs":{
+                                        "type":"integer"
+                                    },
+                                    "im":{
+                                        "type":"string"
+                                    },
+                                    "nometd":{
+                                        "type":"string"
+                                    },
+                                    "prenomsetd":{
+                                        "type":"string"
+                                    },
+                                    "motifabs":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }  
+                }
+            }
+        },
+        "/enseignant":{
+            "get":{
+                "tags":["enseignant"],
+                "summary":"renvoie liste enseignants n ont pas de compte user",
+                "responses":{
+                    "200":{
+                        "description":"renvoie liste enseignants",
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "codeens":{
+                                        "type":"string"
+                                    },
+                                    "nomens":{
+                                        "type":"string"
+                                    },
+                                    "prenoms":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }  
+                }
+            }
+        },
+        "/enseignants":{
+            "get":{
+                "tags":["enseignant"],
+                "summary":"renvoie liste tous les enseignants",
+                "responses":{
+                    "200":{
+                        "description":"renvoie liste enseignants",
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "codeens":{
+                                        "type":"string"
+                                    },
+                                    "nomens":{
+                                        "type":"string"
+                                    },
+                                    "prenoms":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }  
+                }
+            }
+        },
+        "/scolarite":{
+            "get":{
+                "tags":["scolarite"],
+                "summary":"renvoie liste scolarites n'ont pas de compte user",
+                "responses":{
+                    "200":{
+                        "description":"renvoie liste scolarites",
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "codesco":{
+                                        "type":"string"
+                                    },
+                                    "nomsco":{
+                                        "type":"string"
+                                    },
+                                    "prensco":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }  
+                }
+            }
+        }
+    
+    }
+}

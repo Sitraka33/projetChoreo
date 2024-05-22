@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  //url="postgresql://postgres:postgres@localhost:5432/gestion_presence?schema=public"
+  url= "postgres://gestionuser:H4rT7cAtNzYe7RF7b39LuizYT8LTyEoh@dpg-cl4hks02650c73a5uuog-a.oregon-postgres.render.com/dbgestionpresence"
+  shadowDatabaseUrl="postgres://hjytxjwj:nuaooik5hb5tBM4uzl3RgXRxMvH2_FKL@suleiman.db.elephantsql.com/hjytxjwj"
+}
+
+model absence {
+  codeabs     Int      @id @db.SmallInt @default(autoincrement())
+  motifabs    String?  @db.VarChar(100)
+  codemat     Int
+  codehoraire Int
+  im          String   @db.VarChar(20)
+  horaire     horaire  @relation(fields: [codehoraire], references: [codehoraire], onDelete: Cascade, onUpdate: Cascade)
+  etudiant    etudiant @relation(fields: [im], references: [im], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model annee {
+  codeas   Int        @id @db.SmallInt @default(autoincrement())
+  anneeas  String     @db.VarChar(20)
+  etudiant etudiant[]
+}
+
+model classe {
+  codeclasse Int        @id @default(autoincrement())
+  classe     String     @db.VarChar(50)
+  etudiant   etudiant[]
+  matiere    matiere[]
+}
+
+model enseignant {
+  codeens    String    @id @db.VarChar(10)
+  nomens     String    @db.VarChar(50)
+  prenomsens String    @db.VarChar(50)
+  matiere    matiere[]
+  horaire    horaire[]
+}
+
+model etudiant {
+  im          String    @id @db.VarChar(20)
+  nometd      String    @db.VarChar(50)
+  prenomsetd  String    @db.VarChar(50)
+  cinetd      String?   @db.VarChar(20)
+  teletd      String?   @db.VarChar(10)
+  mailetd     String?   @db.VarChar(50)
+  datenaisetd DateTime? @db.Date
+  codeas      Int       @db.SmallInt
+  codeclasse  Int
+  absence     absence[]
+  annee       annee     @relation(fields: [codeas], references: [codeas], onDelete: Cascade, onUpdate: Cascade)
+  classe      classe    @relation(fields: [codeclasse], references: [codeclasse], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model horaire {
+  codehoraire Int        @id @default(autoincrement())
+  dateabs     DateTime   @db.Date
+  heure       DateTime   @db.Time
+  codeens     String     
+  codemat     Int
+  absence     absence[]
+  enseignant  enseignant @relation(fields: [codeens], references: [codeens],onDelete: Cascade, onUpdate: Cascade)
+  matiere     matiere    @relation(fields: [codemat],references: [codemat],onDelete: Cascade, onUpdate: Cascade)
+}
+
+model matiere {
+  codemat    Int        @id @default(autoincrement())
+  matiere    String     @db.VarChar(50)
+  codeclasse Int
+  codeens    String     @db.VarChar(10)
+  classe     classe     @relation(fields: [codeclasse], references: [codeclasse], onDelete: Cascade, onUpdate: Cascade)
+  enseignant enseignant @relation(fields: [codeens], references: [codeens], onDelete: Cascade, onUpdate: Cascade)
+  horaire    horaire[]
+}
+
+model utilisateur {
+  id                Int     @id @default(autoincrement())
+  matricule         String  @unique @db.VarChar(10)
+  motdepasse        String  @db.VarChar(100)
+  poste             Poste   @default(Enseignant)
+}
+enum Poste { 
+  Admin
+  Enseignant
+  Scolarite
+}
+
+model scolarite{
+  codesco    String    @id @db.VarChar(10)
+  nomsco     String    @db.VarChar(50)
+  prenomsco String    @db.VarChar(50)
+}
+
